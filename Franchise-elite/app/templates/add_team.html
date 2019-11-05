@@ -1,5 +1,19 @@
+{% extends "app/index.html" %}
+{% block content %}
+
+
+<div class="header-card">
+        <div class="lh-100">
+          <h6 class="mb-0 text-white lh-100">Add Team</h6>
+        </div>
+      </div>
+<div class="card">
+    <div class="card-body">
 <form action="#" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="OK">
+    <input type="submit" value="Submit Data">
 </form>
+    </div>
+    </div>
+{% endblock content %}

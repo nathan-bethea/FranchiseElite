@@ -59,6 +59,14 @@
     <Folder Include="Franchise_elite\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\templates\add_log.html" />
+    <Content Include="app\templates\add_team.html" />
+    <Content Include="app\templates\add_position.html" />
+    <Content Include="app\templates\add_player.html" />
+    <Content Include="app\templates\add_game.html" />
+    <Content Include="app\templates\add_school.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="db.sqlite3" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />

@@ -27,4 +27,10 @@ urlpatterns = [
          name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
+    path('add_school/', views.add_school, name='add_school'),
+    path('add_game/', views.add_game, name='add_game'),
+    path('add_player/', views.add_player, name='add_player'),
+    path('add_position/', views.add_position, name='add_position'),
+    path('add_team/', views.add_team, name='add_team'),
+    path('add_log/', views.add_log, name='add_log'),
 ]

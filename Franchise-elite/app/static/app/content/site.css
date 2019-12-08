@@ -85,7 +85,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 body {
-    background-color: #85929E;
+    background-color: #55445c;
 }
 
 #wrapper {
@@ -267,12 +267,12 @@ form {
         padding: 19px 39px 18px 39px;
         color: #FFF;
         margin: 0 auto;
-        background: #1abc9c;
+        background: #a462bf;
         font-size: 18px;
         text-align: center;
         font-style: normal;
         width: 100%;
-        border: 1px solid #16a085;
+        border: 1px solid #55445cx;
         border-width: 1px 1px 3px;
         margin-bottom: 10px;
         border-radius: 10px;
@@ -280,18 +280,24 @@ form {
 
         form input[type="submit"]:hover,
         form input[type="button"]:hover {
-            background: #109177;
+            background: #b98bcc;
         }
 
 .header-card {
     margin-top: 10px;
-    background-color: #1abc9c;
+    background-color: #a462bf;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     padding: 20px;
 }
 
-h6{
-    font-size:48px;
+h6 {
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.col-12 {
+    padding-left:0px;
+    padding-right:0px;
 }
 

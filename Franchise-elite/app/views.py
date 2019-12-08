@@ -6,6 +6,15 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponseRedirect
 from .forms import *
+from .models import *
+from .tables import *
+from .filters import PlayerFilter
+from django.views.generic import ListView, DetailView
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
+from django.db.models import Avg, Count, Min, Sum
+from django.db.models.functions import Cast
+from django.db.models import FloatField
 
 def home(request):
     """Renders the home page."""
@@ -31,6 +40,39 @@ def contact(request):
             'year':datetime.now().year,
         }
     )
+def profile(request):
+    template = 'profile.html'
+    table = PlayerTable(Log.objects.all().aggregate)
+    context = {'objectlist': Player.objects.all(),
+               'table': table}
+
+    return render(request, template, context)
+
+class LogList(FilterView):
+    model = Log
+    context_object_name = 'logs'
+    filter_class = PlayerFilter
+
+def player_list(request):
+    f = PlayerFilter(request.GET, queryset=Log.objects.all())
+    agg = PlayerFilter(request.GET, queryset=Log.objects.values('player_id').annotate(total_score=Sum('score'),
+                                                                                      total_made=Sum('fldGoalMade'),
+                                                                                      total_att=Sum('fldGoalAtt'),
+                                                                                      fg_percent=(Sum('fldGoalMade')/Sum('fldGoalAtt'))*100,
+                                                                                      total_three_made=Sum('threePtMade'),
+                                                                                      total_three_att=Sum('threePtAtt'),
+                                                                                      three_pt_percent=(Sum('threePtMade')/Sum('threePtAtt'))*100,
+                                                                                      total_reb=Sum('rebound'),
+                                                                                      total_off_reb=Sum('offRebound'),
+                                                                                      total_def_reb=Sum('defRebound'),
+                                                                                      total_pfouls=Sum('pFouls'),
+                                                                                      total_steals=Sum('steals'),
+                                                                                      total_turnovers=Sum('turnovers'),
+                                                                                      total_blocks=Sum('blocks'),
+                                                                                      total_assists=Sum('assist')
+                                                                                      ))
+    #photo_filter = Log.objects.filter(player_id='player_id').values_list('player__photo')
+    return render(request, 'profile.html', {'filter': f, 'agg_filter': agg})
 
 def about(request):
     """Renders the about page."""

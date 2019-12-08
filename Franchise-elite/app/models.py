@@ -3,8 +3,9 @@ Definition of models.
 """
 
 from django.db import models
+import django_filters
 
-# Create your models here.
+
 class Team(models.Model):
     team_name = models.CharField(max_length = 256)
     coach = models.CharField(max_length = 256)
@@ -38,6 +39,7 @@ class Player(models.Model):
     lname = models.CharField(max_length = 256)
     dateOfbirth = models.DateField()
     height = models.DecimalField(decimal_places = 2, max_digits = 6)
+    photo = models.ImageField(upload_to="gallery", default = 'noImageAttached.png')
 
     def __str__(self):
         return self.fname + " " + self.lname
@@ -60,10 +62,10 @@ class Log(models.Model):
     player_id = models.ForeignKey(Player, on_delete = models.CASCADE)
     score = models.IntegerField()
     time_played = models.DateTimeField()
-    fldGoalMade = models.IntegerField()
-    fldGoalAtt = models.IntegerField()
-    threePtMade = models.IntegerField()
-    threePtAtt = models.IntegerField()
+    fldGoalMade = models.FloatField()
+    fldGoalAtt = models.FloatField()
+    threePtMade = models.FloatField()
+    threePtAtt = models.FloatField()
     rebound = models.IntegerField()
     offRebound = models.IntegerField()
     defRebound = models.IntegerField()
@@ -72,4 +74,3 @@ class Log(models.Model):
     turnovers = models.IntegerField()
     blocks = models.IntegerField()
     assist = models.IntegerField()
-

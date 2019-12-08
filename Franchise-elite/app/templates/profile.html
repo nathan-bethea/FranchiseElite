@@ -1,0 +1,207 @@
+{% extends "app/index.html" %}
+{% block content %}
+{% load render_table from django_tables2 %}
+
+
+<div class="header-card">
+        <div class="lh-100">
+          <h6 class="mb-0 text-white lh-100">Player Stats</h6>
+        </div>
+      </div>
+<div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-title mb-4">
+                            <div class="d-flex justify-content-start">
+                                <!--<div class="image-container">
+                                    <img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                    <div class="middle">
+                                        <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
+                                        <input type="file" style="display: none;" id="profilePicture" name="file" />
+                                    </div>
+                                </div>-->
+                                <div class="userData ml-3">
+                                        <form class="form-inline" action="" method="get">
+                                            {{ filter.form.as_table }}
+                                            <input type="submit" value="Select Player"/>
+                                        </form>
+                                </div>
+                                <div class="m-auto">
+                                    <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
+                                </div>
+                            </div>
+                            <img src="{{ player.photo.url }}" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">All-Time Stats</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab" aria-controls="connectedServices" aria-selected="false">Game Stats</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <!-- Tab 1 starts here-->
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                        <div class="table-responsive">
+                                        <table class="table table-striped table-bordered w-auto">
+                                            
+                                            <thead>
+                                                
+                                                <tr>
+                                                    <th scope="col">Points</th>                             
+                                                    <th scope="col">FG Made/Att.</th>
+                                                    <th scope="col">FG %</th>
+                                                    <th scope="col">3Pt Made/Att.</th>
+                                                    <th scope="col">3Pt %</th>
+                                                    <th scope="col">Rebounds</th>
+                                                    <th scope="col">Off/Def Rebounds</th>
+                                                    <th scope="col">Personal Fouls</th>
+                                                    <th scope="col">Steals</th>
+                                                    <th scope="col">Turnovers</th>
+                                                    <th scope="col">Blocks</th>
+                                                    <th scope="col">Assists</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            
+                                            <tr>
+                                            {% for obj in agg_filter.qs %}
+                                                <td>
+                                                     {{ obj.total_score }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_made }} / {{ obj.total_att }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.fg_percent|floatformat:2 }} %
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_three_made }} / {{ obj.total_three_att }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.three_pt_percent|floatformat:2 }} %
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_reb }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_off_reb }} / {{ obj.total_def_reb }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_pfouls }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_steals }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_turnovers }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_blocks }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.total_assists }}
+                                                </td>
+                                            </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>     
+                                    <!-- Tab 1 ends here-->
+
+                                    <div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="connectedServices-tab">
+                                        <div class="table-responsive">
+                                        <table class="table table-striped table-bordered w-auto">
+                                            
+                                            <thead>
+                                                
+                                                <tr>
+                                                    <th style="width: 75%" scope="col">Game #</th>
+                                                    <th scope="col">Points</th>
+                                                    <th scope="col">FG Made</th>
+                                                    <th scope="col">FG Att.</th>
+                                                    <th scope="col">3-Pt Made</th>
+                                                    <th scope="col">3-Pt Att.</th>
+                                                    <th scope="col">Rebounds</th>
+                                                    <th scope="col">Off. Rebounds</th>
+                                                    <th scope="col">Def. Rebounds</th>
+                                                    <th scope="col">Personal Fouls</th>
+                                                    <th scope="col">Steals</th>
+                                                    <th scope="col">Turnovers</th>
+                                                    <th scope="col">Blocks</th>
+                                                    <th scope="col">Assists</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for obj in filter.qs %}
+                                            <tr>
+                                                <td>
+                                                     {{ obj.game_id }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.score }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.fldGoalMade }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.fldGoalAtt }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.threePtMade }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.threePtAtt }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.rebound }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.offRebound }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.defRebound }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.pFouls }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.steals }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.turnovers }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.blocks }}
+                                                </td>
+                                                <td>
+                                                     {{ obj.assist }}
+                                                </td>
+                                            </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    <!--Tab 2 ends here-->
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

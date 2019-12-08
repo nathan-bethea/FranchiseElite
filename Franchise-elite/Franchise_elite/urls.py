@@ -7,6 +7,9 @@ from django.urls import path
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
@@ -33,4 +36,7 @@ urlpatterns = [
     path('add_position/', views.add_position, name='add_position'),
     path('add_team/', views.add_team, name='add_team'),
     path('add_log/', views.add_log, name='add_log'),
+    path('stats/', views.player_list, name='stats'),
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
